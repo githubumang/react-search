@@ -1,3 +1,5 @@
+import { useState } from "react";
+
 function ProductCategoryRow({category}){
   return(
       <tr>
@@ -17,7 +19,7 @@ function ProductRow({name,price,stocked}){
 }
 
 
-function ProductTable({products}){
+function ProductTable({products, filterText, onlyInStock}){
   const Row = [];
   let lastCategory=null;
 
@@ -47,22 +49,25 @@ function ProductTable({products}){
   )
 }
 
-function SearchBar(){
+function SearchBar({filterText, onlyInStock, setFilterText, setOnlyInStock}){
   return(
     <>
-      <input type="text" placeholder="Search..."/><br/>
+      <input type="text" value={filterText} onChange={(e)=>setFilterText(e.target.value)} placeholder="Search..."/><br/>
       <label>
-      <input type="checkbox"/>{' '}Only Show Products in Stock<br/>
+      <input type="checkbox" checked={onlyInStock} onChange={(e)=>setOnlyInStock(e.target.checked)}/>{' '}Only Show Products in Stock<br/>
       </label>
     </>
   )
 }
 
 function FilterableProductTable({products}){
+  const [filterText, setFilterText] = useState('')
+  const [onlyInStock, setOnlyInStock] = useState(false)
   return(
     <>
-    <SearchBar/>
-    <ProductTable products={products}/>
+    <SearchBar filterText={filterText} onlyInStock={onlyInStock} setFilterText={setFilterText} setOnlyInStock={setOnlyInStock}/>
+    {filterText}
+    <ProductTable products={products} filterText={filterText} onlyInStock={onlyInStock}/>
     </>
   );
 }
