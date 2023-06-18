@@ -25,6 +25,14 @@ function ProductTable({products, filterText, onlyInStock}){
 
   products.forEach((product) => {
     // console.log(product.category)
+    if(product.name.toLowerCase().indexOf(
+      filterText.toLowerCase()
+    )===-1){
+      return;
+    }
+    if(onlyInStock && !product.stocked){
+      return;
+    }
     if(product.category!==lastCategory){
       Row.push(<ProductCategoryRow category={product.category} key={product.category}/>)
     }
