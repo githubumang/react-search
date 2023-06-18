@@ -74,7 +74,6 @@ function FilterableProductTable({products}){
   return(
     <>
     <SearchBar filterText={filterText} onlyInStock={onlyInStock} setFilterText={setFilterText} setOnlyInStock={setOnlyInStock}/>
-    {filterText}
     <ProductTable products={products} filterText={filterText} onlyInStock={onlyInStock}/>
     </>
   );
